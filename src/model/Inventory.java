@@ -10,43 +10,35 @@ import java.util.List;
  */
 
 public class Inventory implements InventoryInformation {
-	
-	Truck truck;
+		
+	private Truck truck;
 	private double money;
-	List<StoredArticle> storage;
+	private List<StoredArticle> storage;
 	private int boughtOfferID;
 	private boolean isBuying;
 	private double totalSold;
 	
-
-	public Inventory(List<StoredArticle> AllArticles, double Money)
-	{
-		isBuying = false;
-		totalSold = 0;
-		money = Money;
-		storage = new ArrayList<StoredArticle>();
-		truck = new Truck(0, null, 0);
-		for (StoredArticle article : AllArticles)
-		{
-			storage.add(article);
-		}
-	}
 	
-	public Inventory(List<Article> allArticles)
+	public Inventory(List<Article> allArticles, int money)
 	{
-		isBuying = false;
-		money = 1000;
-		truck = new Truck(0, null, 0);
-		storage = new ArrayList<StoredArticle>();
+		this.isBuying = false;
+		this.money = money;
+		this.truck = new Truck(0, null, 0);
+		this.storage = new ArrayList<StoredArticle>();
 		for (Article article : allArticles)
 		{
 			StoredArticle newStoredArticle = new StoredArticle(new Article(article), 
 												 article.getBasePrice(), 
 												 0);
-			storage.add(newStoredArticle);
+			this.storage.add(newStoredArticle);
 		}
 	}
 	
+	public Inventory(List<Article> allArticles) 
+	{
+		this(allArticles, 1000);
+	}
+
 	public List<StoredArticle> getStorage()
 	{
 		return storage;
@@ -108,7 +100,6 @@ public class Inventory implements InventoryInformation {
 	public void buy(OfferInformation offer)
 	{
 		buy(offer.getOfferID());
-		isBuying = true;
 	}
 	
 	public int getBoughtOffer()

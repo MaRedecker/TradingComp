@@ -1,8 +1,12 @@
 package model;
 
+/**
+ * Different speeds which can be chosen for the competition.
+ * @author Max
+ *
+ */
+
 public enum Speed {
-	
-	
 	
 	NORMAL(100),
 	
@@ -17,6 +21,7 @@ public enum Speed {
 	private final int sleepTime;
 	
     private Speed(final int sleepTime) {
+    	
         this.sleepTime = sleepTime;
     }
     

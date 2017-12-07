@@ -3,6 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stores all the available offers.
+ * @author Max
+ *
+ */
 public class TendingOffers implements TendingOffersInformation {
 	
 	private List<Offer> allOffers;
@@ -12,12 +17,12 @@ public class TendingOffers implements TendingOffersInformation {
 		allOffers = new ArrayList<Offer>();
 	}
 	
-	public List<Offer> _allOffers()
+	public List<Offer> getAllOffers()
 	{
 		return allOffers;
 	}
 	
-	public void _addOffer(Offer newOffer)
+	public void addOffer(Offer newOffer)
 	{
 		allOffers.add(newOffer);
 	}
@@ -37,21 +42,19 @@ public class TendingOffers implements TendingOffersInformation {
 		allOffers = offers;
 	}
 	
-	
 	public void updateData(TendingOffers offers)
 	{
 		if (offers.getOffers().size() == allOffers.size())
 		{
-			
-			for (int i = 0; i < offers._allOffers().size(); i++)
+			for (int i = 0; i < offers.getAllOffers().size(); i++)
 			{
-				allOffers.get(i).updateData(offers._allOffers().get(i));
+				allOffers.get(i).updateData(offers.getAllOffers().get(i));
 			}
 		}
 		else
 		{
 			allOffers.clear();
-			for (Offer offer : offers._allOffers())
+			for (Offer offer : offers.getAllOffers())
 			{
 				allOffers.add(new Offer(offer));
 			}
@@ -65,5 +68,4 @@ public class TendingOffers implements TendingOffersInformation {
 			offer.updatePrice(Tick, lowestPriceFactor, tickUntilDecrease);
 		}
 	}	
-
 }

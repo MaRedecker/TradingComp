@@ -1,6 +1,6 @@
 package model;
 /**
- * Article which can be bought and sold by an AI.
+ * An article which can be bought and sold by a company.
  * @author Max
  *
  */
@@ -22,6 +22,10 @@ public class Article {
 		basePrice = BasePrice;
 	}
 	
+	/**
+	 * 
+	 * @param article article from which members get copied.
+	 */
 	public Article(Article article) {
 		this(article.getName(), article.getID(), article.getBasePrice());
 	}
@@ -44,6 +48,10 @@ public class Article {
 		return id;
 	}
 
+	/**
+	 * 
+	 * @return Base price of the article
+	 */
 	public double getBasePrice() {
 		
 		return basePrice;

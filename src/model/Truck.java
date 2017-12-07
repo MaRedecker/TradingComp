@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * A truck which can move articles between buildings.
+ * @author Max
+ *
+ */
 public class Truck implements TruckInformation {
 	
 	private int position;
@@ -45,11 +50,13 @@ public class Truck implements TruckInformation {
 		return false;
 	}
 
-	public int getTargetPosition() {
+	public int getTargetPosition() 
+	{
 		return targetPosition;
 	}
 
-	public void driveTo(int targetPos) {
+	public void driveTo(int targetPos) 
+	{
 		if (Math.abs(targetPos - position) > 0)
 		{
 			targetPosition = targetPos;
@@ -78,8 +85,7 @@ public class Truck implements TruckInformation {
 		else if (position < targetPosition)
 		{
 			position++;
-		}
-		
+		}	
 		if (this.state != TruckState.IDLE && this.position == targetPosition)
 		{
 			reachedPosition = true;

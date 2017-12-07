@@ -2,6 +2,11 @@ package model;
 
 import java.util.Observable;
 
+/**
+ * Settings of the competition.
+ * @author Max
+ *
+ */
 public class Settings extends Observable {
 	
 	private Speed speed;

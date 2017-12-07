@@ -29,16 +29,16 @@ public class TendingOffersControl {
 	
 	public void addOffer(Offer newOffer)
 	{
-		tendingOffers._addOffer(newOffer);
+		tendingOffers.addOffer(newOffer);
 	}
 	
 	public void deleteOffer(int ID)
 	{
-		for (Offer offer : tendingOffers._allOffers())
+		for (Offer offer : tendingOffers.getAllOffers())
 		{
 			if (offer.getOfferID() == ID)
 			{
-				tendingOffers._allOffers().remove(offer);
+				tendingOffers.getAllOffers().remove(offer);
 				return;
 			}
 		}
@@ -56,12 +56,12 @@ public class TendingOffersControl {
 	
 	public void generateNewOffer(int tick)
 	{
-		tendingOffers._addOffer(offerGenerator.generateNewOffer(tick));
+		tendingOffers.addOffer(offerGenerator.generateNewOffer(tick));
 	}
 	
 	public void updateAll(int tick, Settings settings)
 	{
-		for (Iterator<Offer> offerIterator = tendingOffers._allOffers().iterator(); offerIterator.hasNext();)
+		for (Iterator<Offer> offerIterator = tendingOffers.getAllOffers().iterator(); offerIterator.hasNext();)
 		{
 			Offer offer = offerIterator.next();
 			if (tick - offer.getStartTime() > settings.getTicksUntilDeleteOffer())
@@ -78,7 +78,7 @@ public class TendingOffersControl {
 	
 	public Offer getOffer(int id)
 	{
-		for (Offer offer : tendingOffers._allOffers())
+		for (Offer offer : tendingOffers.getAllOffers())
 		{
 			if (offer.getOfferID() == id)
 			{
@@ -99,8 +99,8 @@ public class TendingOffersControl {
 	}
 
 	public void reset() {
-		this.tendingOffers._allOffers().clear();
-		this.tendingOffers_cpy._allOffers().clear();
+		this.tendingOffers.getAllOffers().clear();
+		this.tendingOffers_cpy.getAllOffers().clear();
 		
 	}
 	

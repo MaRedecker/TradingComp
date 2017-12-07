@@ -2,6 +2,12 @@ package model;
 
 import java.util.Observable;
 
+
+/**
+ * Keeps track of some informations about the competition
+ * @author Max
+ *
+ */
 public class Competition extends Observable {
 	
 	private int turns;

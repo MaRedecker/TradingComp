@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Stores information about one offer.
+ * @author Max
+ *
+ */
+
 public class Offer implements OfferInformation {
 	
 	private double price;
@@ -21,12 +27,9 @@ public class Offer implements OfferInformation {
 	
 	public Offer(Offer offer)
 	{
-		price = offer.getPricePerUnit();
-		startPrice = offer.getStartPrice();
-		amount = offer.getAmount();
-		article = offer.getArticle();
-		ID = offer.getOfferID();
-		startTime = offer.getStartTime();
+		this(offer.getPricePerUnit(), offer.getAmount(),
+				offer.getArticle(), offer.getOfferID(),
+				offer.getStartTime());
 	}
 	
 	public int getAmount()
@@ -79,16 +82,17 @@ public class Offer implements OfferInformation {
 		return startTime;
 	}
 	
+	public double getStartPrice()
+	{
+		return startPrice;
+	}
+	
 	public void updatePrice(int Tick, double lowestPriceFactor, int tickUntilDecrease)
 	{
 		if (price * lowestPriceFactor > startPrice)
 			price =  Math.floor((startPrice / 100 * (100 - ((Tick - startTime) / tickUntilDecrease)))* 100) / 100;
 	}
 	
-	public double getStartPrice()
-	{
-		return startPrice;
-	}
 	
 	public void updateData(Offer offer)
 	{

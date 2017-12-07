@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Keeps track of the amount and current price of one article in a company's warehouse.
+ * @author Max
+ *
+ */
 public class StoredArticle implements StoredArticleInformation {
 	
 	private double price;
@@ -20,20 +25,10 @@ public class StoredArticle implements StoredArticleInformation {
 		this.article = article;
 	}
 	
-	/**
-	 * 
-	 * @return amount which is stored in the warehouse
-	 */
-	
 	public int getAmount()
 	{
 		return amount;
 	}
-	
-	/**
-	 * 
-	 * @return current price of this article
-	 */
 	
 	public double getSellingPricePerUnit()
 	{
