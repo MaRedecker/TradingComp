@@ -68,7 +68,7 @@ public abstract class Company {
 	 * @return a TendingOffersInformation object, which holds all information
 	 * about currently tending offers which are available.
 	 */
-	protected TendingOffersInformation getOfferInformation() {
+	public TendingOffersInformation getOfferInformation() {
 		return offers;
 	}
 

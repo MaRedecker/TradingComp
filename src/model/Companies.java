@@ -36,7 +36,7 @@ public class Companies {
 	
 	public List<Company> getCompaniesWhichTrucksReachDest()
 	{
-		return this.companies.stream().filter(c -> c.getTruck().getDistanceToTarget() == 1)
+		return this.companies.stream().filter(c -> c.getTruck().getDistanceToTarget() == 0 && c.getTruck().isIdling())
 				.collect(Collectors.toList());
 	}
 	
