@@ -1,14 +1,14 @@
 package control;
 
-import java.util.Observable;
-import java.util.Observer;
-
-import model.Companies;
 import model.Competition;
 import model.Settings;
-import model.Speed;
 
-public class TurnControl implements Runnable, Observer {
+/**
+ * controls what happens each tick.
+ * @author Max
+ *
+ */
+public class TurnControl implements Runnable {
 	
 	private CompetitionControl compControl;
 	private Competition competition;
@@ -43,13 +43,4 @@ public class TurnControl implements Runnable, Observer {
 			}
 		}
 	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		
-		
-	}
-	
-	
-
 }

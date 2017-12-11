@@ -9,6 +9,11 @@ import model.Offer;
 import model.Settings;
 import model.TendingOffers;
 
+/**
+ * Takes care of all offers which are available to the companies.
+ * @author Max
+ *
+ */
 public class TendingOffersControl {
 	
 	private TendingOffers tendingOffers;
@@ -59,7 +64,7 @@ public class TendingOffersControl {
 		tendingOffers.addOffer(offerGenerator.generateNewOffer(tick));
 	}
 	
-	public void updateAll(int tick, Settings settings)
+	public void updateAll(int tick, Settings settings, int numberOfParticipants)
 	{
 		for (Iterator<Offer> offerIterator = tendingOffers.getAllOffers().iterator(); offerIterator.hasNext();)
 		{
@@ -71,9 +76,11 @@ public class TendingOffersControl {
 		}
 		if (tick % settings.getTicksUntilNextOffer() == 0)
 		{
-			this.generateNewOffer(tick);
+			for (int i = 0; i < settings.getOffersGeneratedPerPlayer() * numberOfParticipants; i++)
+				this.generateNewOffer(tick);
 		}
-		tendingOffers.updateOffers(tick, settings.getLowestPriceFactor(), settings.getTicksUntilDecreasePrice());
+		tendingOffers.updateOffers(tick, settings.getLowestPriceFactor() * numberOfParticipants,
+									 settings.getTicksUntilDecreasePrice());
 	}
 	
 	public Offer getOffer(int id)
@@ -101,7 +108,5 @@ public class TendingOffersControl {
 	public void reset() {
 		this.tendingOffers.getAllOffers().clear();
 		this.tendingOffers_cpy.getAllOffers().clear();
-		
 	}
-	
 }

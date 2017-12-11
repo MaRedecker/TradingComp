@@ -108,12 +108,6 @@ public abstract class Company {
 	}
 	
 	/**
-	 * gets called when the truck reached its destination.
-	 */
-	public void onTruckReachedTarget() {	
-	}
-	
-	/**
 	 * sets the color for your company.
 	 * @return your color.
 	 */

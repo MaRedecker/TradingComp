@@ -27,7 +27,6 @@ public class TestingCompany extends Company {
 		if (getOfferInformation().getOffers().size() > 1)
 		if (getOfferInformation().getOffers().get(1).getFullPrice() < getInventory().getMoney())
 		{
-			System.out.println(getOfferInformation().getOffers().get(1).getFullPrice() + " " + getInventory().getMoney());
 			buy(getOfferInformation().getOffers().get(1).getOfferID());}
 	
 		if (getTruck().isIdling() && getTruck().getPosition() == Buildings.WAREHOUSE)
@@ -61,12 +60,6 @@ public class TestingCompany extends Company {
 	{
 		getTruck().unload();
 		System.out.println("\nunloading...\n");
-	}
-	
-	@Override
-	public void onTruckReachedTarget()
-	{
-		
 	}
 
 	@Override

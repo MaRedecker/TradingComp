@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import Generators.ArticleGenerator;
-import Generators.OfferGenerator;
 import control.Samples.LowPriceBestPrice;
 import control.Samples.TestingCompany;
 import model.*;
 
+/**
+ * Starts and ends a competition.
+ * @author Max
+ *
+ */
 public class CompetitionControl implements Observer {
 	
 	private Competition competition;
@@ -30,18 +33,16 @@ public class CompetitionControl implements Observer {
 		offers = new TendingOffersControl(articleControl.getAllArticles());
 		inventories = new InventoryControl(articleControl);
 		turnControl = new TurnControl(competition, this, settings);
-		competition.addObserver(turnControl);
 		competition.addObserver(this);
 		this.settings = settings;
-		
 	}
 	
 	public void turn()
 	{
-		participants.Tick();
+		participants.Tick();	
 		handleBuyingCompanies();
 		inventories.updateTrucks(participants);
-		offers.updateAll(competition.getTurns(), settings);
+		offers.updateAll(competition.getTurns(), settings, participants.getNumberOfParticipants());
 		articleControl.updateArticles(competition.getTurns());
 		inventories.updateInventoryPrices();
 		inventories.updateInventoryData();
@@ -56,7 +57,6 @@ public class CompetitionControl implements Observer {
 		{
 			company.start();
 		}
-		//competition.setRunning(true);
 	}
 	
 	public void run()
@@ -88,8 +88,7 @@ public class CompetitionControl implements Observer {
 		offers.reset();
 		offers.generateNewOffer(competition.getTurns());
 		offers.generateNewOffer(competition.getTurns());
-		offers.generateNewOffer(competition.getTurns());
-		
+		offers.generateNewOffer(competition.getTurns());	
 	}
 	
 	public void initCompanies()
@@ -98,7 +97,7 @@ public class CompetitionControl implements Observer {
 		for (Company company : participants.getCompanies())
 		{
 			company._setData(inventories.getInventoryCopy(CompanyIndex), 
-					offers.getTendingOffersCpy());
+					this.offers.getTendingOffersCpy());
 			CompanyIndex++;
 		}
 	}
@@ -118,9 +117,9 @@ public class CompetitionControl implements Observer {
 					&& companyInv.getTruck().isLoaded() == false)
 			{
 				companyInv.getTruck().loadBoughtOffer(boughtOffer);
-				inventories.changeMoney(companyIndex, -boughtOffer.getFullPrice());
-				offers.deleteOffer(boughtOffer.getOfferID());
-				participants.getCompanies().get(companyIndex).onBoughtOffer();
+				this.inventories.changeMoney(companyIndex, -boughtOffer.getFullPrice());
+				this.offers.deleteOffer(boughtOffer.getOfferID());
+				this.participants.getCompanies().get(companyIndex).onBoughtOffer();
 			}
 			companyInv.resetBuying();
 		}
@@ -143,7 +142,7 @@ public class CompetitionControl implements Observer {
 	
 	public void reset()
 	{
-		run();
+		this.run();
 	}
 
 	@Override

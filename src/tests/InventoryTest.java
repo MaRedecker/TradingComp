@@ -23,7 +23,6 @@ public class InventoryTest {
 		articleList = new ArrayList<Article>();
 		articleList.add(new Article("Testarticle1", 0, 100.5));
 		articleList.add(new Article("Testarticle2", 1, 50));
-		
 		buyingOffer = 0;
 	}
 

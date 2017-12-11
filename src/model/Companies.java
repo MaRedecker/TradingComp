@@ -48,4 +48,9 @@ public class Companies {
 		}
 	}
 
+	public int getNumberOfParticipants() {
+		
+		return this.companies.size();
+	}
+
 }

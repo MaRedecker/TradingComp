@@ -7,12 +7,15 @@ import java.util.stream.Collectors;
 import model.Article;
 import model.Buildings;
 import model.Companies;
-import model.Company;
 import model.Inventory;
 import model.StoredArticle;
 import model.Truck;
-import model.TruckState;
 
+/**
+ * Initializes and updates all inventories.
+ * @author Max
+ *
+ */
 public class InventoryControl {
 	
 	private List<Inventory> inventories;
@@ -72,67 +75,15 @@ public class InventoryControl {
 	
 	public void updateTrucks(Companies participants)
 	{
+		this.readCompanyInput();
 		for (int i = 0; i < inventories.size(); i++)
 		{
 			Truck truck = inventories.get(i).getTruck();
-			Truck truck_cpy = inventories_cpy.get(i).getTruck();
-			truck.driveTo(truck_cpy.getTargetPosition());
-			truck.setTruckState(truck_cpy.getTruckState());
-			if(truck.isLoading())
-			{
-				truck.load(truck_cpy.getDesiredArticleID(), truck_cpy.getDesiredAmount());
-			}
 			truck.update();
-			if (truck_cpy.hasReachedPosition())
-			{
-				truck_cpy.updateData(truck);
-				Inventory inventoryWithTruck = inventories.get(i);
-				Inventory inventoryWithTruck_cpy = inventories_cpy.get(i);
-				if (truck.isUnloading() && truck.getPosition() == Buildings.WAREHOUSE)
-				{
-					inventoryWithTruck.addBoughtArticles(truck.getLoadedArticle().getID(), truck.getAmount());
-					inventoryWithTruck_cpy.addBoughtArticles(truck.getLoadedArticle().getID(), truck.getAmount());
-					truck.setAmount(0);
-					truck_cpy.setAmount(0);
-					truck.setLoadedArticle(null);
-					truck_cpy.setLoadedArticle(null);
-				}
-				else if (truck.isSelling() && truck.getPosition() == Buildings.SALES)
-				{
-					articleControl.updateArticleSales(truck.getLoadedArticle(), truck.getAmount());
-					double moneyToAdd = inventoryWithTruck.getArticleByID(truck.getLoadedArticle().getID()).
-																getSellingPricePerUnit() * truck.getAmount();
-					inventoryWithTruck.addMoney(moneyToAdd);
-					inventoryWithTruck.setTotalSold(inventoryWithTruck.getTotalSold() + moneyToAdd);
-					truck.setAmount(0);
-					truck.setLoadedArticle(null);
-				}
-				else if (truck.isLoading() && truck.getPosition() == Buildings.WAREHOUSE)
-				{
-					int desiredAmount = truck.getDesiredAmount();
-					int desiredArticleID = truck.getDesiredArticleID();
-					StoredArticle article = (StoredArticle) inventoryWithTruck.getArticleByID(desiredArticleID);
-					if (article.getAmount() >= desiredAmount)
-					{
-						article.setAmount(article.getAmount() - desiredAmount);
-						truck.setLoadedArticle(article.getArticleObject());
-						truck.setAmount(desiredAmount);
-					}
-					else
-					{
-						truck.setLoadedArticle(article.getArticleObject());
-						truck.setAmount(article.getAmount());
-						article.setAmount(0);
-					}
-				}
-				truck_cpy.resetState();
-				truck.resetState();
-				participants.getCompanies().get(i).onTruckReachedTarget();
-				truck.driveTo(truck_cpy.getTargetPosition());
-				truck.setTruckState(truck_cpy.getTruckState());
-				
-			}
-		}
+		}			
+		this.updateSellingTrucks();
+		this.updateLoadingTrucks();
+		this.updateUnloadingTrucks();	
 	}
 	
 	public void updateInventoryPrices()
@@ -146,6 +97,62 @@ public class InventoryControl {
 		}
 	}
 	
+	private void updateSellingTrucks()
+	{
+		List<Inventory> compsWhichSell = this.getCompaniesWhichSell();
+		for (Inventory inventory : compsWhichSell)
+		{
+			Truck truck = inventory.getTruck();
+			articleControl.updateArticleSales(truck.getLoadedArticle(), truck.getAmount());
+			double moneyToAdd = inventory.getArticleByID(truck.getLoadedArticle().getID()).
+														getSellingPricePerUnit() * truck.getAmount();		
+			inventory.addMoney(moneyToAdd);
+			inventory.setTotalSold(inventory.getTotalSold() + moneyToAdd);
+			truck.setAmount(0);
+			truck.setLoadedArticle(null);
+			truck.resetState();
+		}
+	}
+	
+	private void updateLoadingTrucks()
+	{
+		List<Inventory> compsWhichLoad = this.getCompaniesWhichLoad();
+		for (Inventory inventory : compsWhichLoad)
+		{
+			Truck truck = inventory.getTruck();
+			int desiredAmount = truck.getDesiredAmount();
+			int desiredArticleID = truck.getDesiredArticleID();
+			StoredArticle article = (StoredArticle) inventory.getArticleByID(desiredArticleID);
+			if (article.getAmount() >= desiredAmount)
+			{
+				article.setAmount(article.getAmount() - desiredAmount);
+				truck.setLoadedArticle(article.getArticleObject());
+				truck.setAmount(desiredAmount);
+			}
+			else
+			{
+				truck.setLoadedArticle(article.getArticleObject());
+				truck.setAmount(article.getAmount());
+				article.setAmount(0);
+			}
+			truck.resetState();	
+		}
+	}
+	
+	private void updateUnloadingTrucks()
+	{
+		List<Inventory> compsWhichUnload = this.getCompaniesWhichUnload();
+		for (Inventory inventory : compsWhichUnload)
+		{
+			Truck truck = inventory.getTruck();		
+			inventory.addBoughtArticles(truck.getLoadedArticle().getID(), truck.getAmount());
+			inventory.addBoughtArticles(truck.getLoadedArticle().getID(), truck.getAmount());
+			truck.setAmount(0);
+			truck.setLoadedArticle(null);	
+			truck.resetState();	
+		}
+	}
+	
 	public void updateInventoryData()
 	{
 		for (int i = 0; i < inventories.size(); i++)
@@ -154,15 +161,48 @@ public class InventoryControl {
 		}
 	}
 	
+	public void readCompanyInput()
+	{
+		for (int i = 0; i < inventories.size(); i++)
+		{
+			Truck truck = inventories.get(i).getTruck();
+			Truck truck_cpy = inventories_cpy.get(i).getTruck();
+			truck.driveTo(truck_cpy.getTargetPosition());
+			truck.setTruckState(truck_cpy.getTruckState());
+			if(truck.isLoading())
+			{
+				truck.load(truck_cpy.getDesiredArticleID(), truck_cpy.getDesiredAmount());
+			}
+		}
+	}
+	
 	public List<Inventory> getCompaniesWhichBuy()
 	{
 		return this.inventories_cpy.stream().filter(Inventory::wantsToBuy).collect(Collectors.toList());	
 	}
-
-	public List<Inventory> getInventoriesCpy() {
-		
+	
+	public List<Inventory> getCompaniesWhichSell()
+	{
+		return this.inventories.stream().filter(c -> c.getTruck().isSelling() && c.getTruck().hasReachedPosition())
+											.collect(Collectors.toList());	
+	}
+	
+	public List<Inventory> getCompaniesWhichLoad()
+	{
+		return this.inventories.stream().filter(c -> c.getTruck().isLoading() &&
+											c.getTruck().getPosition() == Buildings.WAREHOUSE)
+											.collect(Collectors.toList());	
+	}
+	
+	public List<Inventory> getCompaniesWhichUnload()
+	{
+		return this.inventories.stream().filter(c -> c.getTruck().isUnloading() &&
+											c.getTruck().getPosition() == Buildings.WAREHOUSE)
+											.collect(Collectors.toList());	
+	}
+	public List<Inventory> getInventoriesCpy() 
+	{	
 		return inventories_cpy;
-		
 	}
 
 }

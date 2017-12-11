@@ -24,7 +24,7 @@ public class OfferGenerator {
 	{
 		Article article = allArticles.get(getRandomInt(0, allArticles.size() - 1));
 		double price = getRandomDouble(0.8, 1.2) * article.getBasePrice();
-		int amount = getRandomInt(100, 500);
+		int amount = getRandomInt(50, 4000);
 		Offer offer = new Offer(price, amount, article, getNextID(), tick);
 		return offer;
 	}

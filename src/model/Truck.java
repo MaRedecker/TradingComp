@@ -62,7 +62,6 @@ public class Truck implements TruckInformation {
 			targetPosition = targetPos;
 			state = TruckState.DRIVING;
 		}
-		
 	}
 	
 	public int getDistanceToTarget(int target)
@@ -184,7 +183,6 @@ public class Truck implements TruckInformation {
 	public void load(Article article, int desiredAmount) {
 		
 		this.load(article.getID(), desiredAmount);
-
 	}
 	
 	public void load(int desiredArticleID, int desiredAmount) {
@@ -193,7 +191,16 @@ public class Truck implements TruckInformation {
 		this.desiredAmount = desiredAmount;
 		state = TruckState.LOADING;
 		targetPosition = Buildings.WAREHOUSE;		
-		
+	}
+	
+	public void setDesiredArticle(int id)
+	{
+		this.desiredArticle = id;
+	}
+	
+	public void setDesiredAmount(int amount)
+	{
+		this.desiredAmount = amount;
 	}
 
 	@Override

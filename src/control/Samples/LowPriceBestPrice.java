@@ -16,6 +16,10 @@ public class LowPriceBestPrice extends Company {
 			if (offer != null)
 				this.buy(offer.getOfferID());
 		}
+		else if (getTruck().isIdling() && !getTruck().isLoaded())
+		{
+			getTruck().driveTo(Buildings.MARKET);
+		}
 		
 	}
 	

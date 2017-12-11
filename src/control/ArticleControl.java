@@ -8,6 +8,11 @@ import Generators.ArticleGenerator;
 import model.Article;
 import model.Settings;
 
+/**
+ * Takes care of all articles in the competition, including calculating their prices. 
+ * @author Max
+ *
+ */
 public class ArticleControl {
 	
 	private List<Article> allArticles;
@@ -27,8 +32,8 @@ public class ArticleControl {
 	public void init()
 	{
 		this.generateArticles();
-		articleValues.clear();
-		articleAvailability.clear();
+		this.articleValues.clear();
+		this.articleAvailability.clear();
 		for (Article article : allArticles)
 		{
 			this.articleValues.put(article.getID(), article.getBasePrice());
