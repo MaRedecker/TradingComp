@@ -45,7 +45,7 @@ public class CompetitionControl implements Observer {
 		handleBuyingCompanies();
 		inventories.updateTrucks(participants);
 		offers.updateAll(competition.getTurns(), settings, participants.getNumberOfParticipants());
-		articleControl.updateArticles(competition.getTurns());
+		articleControl.updateArticles(competition.getTurns(), participants.getNumberOfParticipants());
 		inventories.updateInventoryPrices();
 		inventories.updateInventoryData();
 		offers.updateOfferData();

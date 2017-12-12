@@ -39,17 +39,17 @@ public class Settings extends Observable {
 		
 		setLowestPriceFactor(2);
 		
-		setTicksUntilNextOffer(100);
+		setTicksUntilNextOffer(150);
 		
-		setTicksUntilDeleteOffer(400);
+		setTicksUntilDeleteOffer(300);
 		
-		setTicksUntilDecreasePrice(50);
+		setTicksUntilDecreasePrice(5);
 		
-		offersGeneratedPerPlayer = 0.5;
+		offersGeneratedPerPlayer = 1;
 		
-		maxArticlePriceIncreaseFactor = 1.25;
+		maxArticlePriceIncreaseFactor = 1.5;
 		
-		turnsUntilMaxPriceIncrease = 200;
+		turnsUntilMaxPriceIncrease = 300;
 		
 		
 	}

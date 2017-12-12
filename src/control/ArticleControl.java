@@ -47,7 +47,7 @@ public class ArticleControl {
 		this.articleAvailability.put(article.getID(), oldAmount + addAmount);
 	}
 	
-	public void updateArticles(int tick)
+	public void updateArticles(int tick, int playerCount)
 	{
 		for (Article article : allArticles)
 		{

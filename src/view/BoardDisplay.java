@@ -160,6 +160,7 @@ public class BoardDisplay extends JPanel {
     		g.drawString(output, (int) (dest.x + (dest.width * 0.25)) , this.getHeightofPlayer(i));
     		output = "Amount Stored: " + allComps.get(i).getInventory().getAmountOfStoredArticles();
     		font = this.getFontWhichFit(g, output, dest, 50);
+    		g.setFont(font);
     		g.drawString(output, (int) (dest.x + (dest.width * 0.25)) , 
     				(this.getHeightofPlayer(i+1) - this.getHeightofPlayer(i)) / 2 + this.getHeightofPlayer(i));
     	}

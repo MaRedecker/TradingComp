@@ -36,13 +36,13 @@ public class ArticleControlTest {
 		articleControl.init();
 		Article article = articleControl.getAllArticles().get(0);
 		double oldPrice = article.getBasePrice();
-		articleControl.updateArticles(1);
+		articleControl.updateArticles(1, 1);
 		double newPrice = articleControl.getArticlePrice(article);
 		assertFalse(oldPrice == newPrice);
 		assertFalse(newPrice < article.getBasePrice());
 		assertFalse(newPrice > article.getBasePrice() * settings.getMaxArticlePriceIncrease());
 		articleControl.updateArticleSales(article, 10000);
-		articleControl.updateArticles(2);
+		articleControl.updateArticles(2, 1);
 		newPrice = articleControl.getArticlePrice(article);
 		assertTrue(oldPrice == newPrice);
 		assertFalse(newPrice < article.getBasePrice());
