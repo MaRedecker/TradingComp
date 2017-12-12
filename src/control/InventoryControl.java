@@ -97,7 +97,7 @@ public class InventoryControl {
 		}
 	}
 	
-	private void updateSellingTrucks()
+	public void updateSellingTrucks()
 	{
 		List<Inventory> compsWhichSell = this.getCompaniesWhichSell();
 		for (Inventory inventory : compsWhichSell)
@@ -114,7 +114,7 @@ public class InventoryControl {
 		}
 	}
 	
-	private void updateLoadingTrucks()
+	public void updateLoadingTrucks()
 	{
 		List<Inventory> compsWhichLoad = this.getCompaniesWhichLoad();
 		for (Inventory inventory : compsWhichLoad)
@@ -139,13 +139,12 @@ public class InventoryControl {
 		}
 	}
 	
-	private void updateUnloadingTrucks()
+	public void updateUnloadingTrucks()
 	{
 		List<Inventory> compsWhichUnload = this.getCompaniesWhichUnload();
 		for (Inventory inventory : compsWhichUnload)
 		{
 			Truck truck = inventory.getTruck();		
-			inventory.addBoughtArticles(truck.getLoadedArticle().getID(), truck.getAmount());
 			inventory.addBoughtArticles(truck.getLoadedArticle().getID(), truck.getAmount());
 			truck.setAmount(0);
 			truck.setLoadedArticle(null);	
@@ -167,7 +166,7 @@ public class InventoryControl {
 		{
 			Truck truck = inventories.get(i).getTruck();
 			Truck truck_cpy = inventories_cpy.get(i).getTruck();
-			truck.driveTo(truck_cpy.getTargetPosition());
+			truck.setTargetPosition(truck_cpy.getTargetPosition());
 			truck.setTruckState(truck_cpy.getTruckState());
 			if(truck.isLoading())
 			{

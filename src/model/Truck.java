@@ -50,6 +50,11 @@ public class Truck implements TruckInformation {
 		return false;
 	}
 
+	public void setTargetPosition(int target)
+	{
+		this.targetPosition = target;
+	}
+	
 	public int getTargetPosition() 
 	{
 		return targetPosition;

@@ -78,6 +78,16 @@ public class CompetitionControl implements Observer {
 		participants.setCompanies(companies);
 	}
 	
+	public void loadTestCompanies()
+	{
+		List<Company> companies = new ArrayList<Company>();
+		companies.add(new TestingCompany());
+		companies.add(new TestingCompany());
+		companies.add(new TestingCompany());
+		companies.add(new TestingCompany());
+		participants.setCompanies(companies);
+	}
+	
 	public void InitInventories()
 	{
 		inventories.initInventories(participants.getCompanies().size());
@@ -123,6 +133,7 @@ public class CompetitionControl implements Observer {
 			}
 			companyInv.resetBuying();
 		}
+		inventories.updateInventoryData();
 	}
 	
 	public TendingOffers getTendingOffers()
@@ -138,6 +149,11 @@ public class CompetitionControl implements Observer {
 	public Competition getCompetition()
 	{
 		return this.competition;
+	}
+	
+	public InventoryControl getInventoryControl()
+	{
+		return this.inventories;
 	}
 	
 	public void reset()
