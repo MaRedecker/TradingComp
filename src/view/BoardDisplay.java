@@ -170,7 +170,7 @@ public class BoardDisplay extends JPanel {
     private void paintPlayerMoney(Graphics g, Rectangle dest)
     {
     	g.setColor(Color.BLACK);
-    	String header = "Total Money:";
+    	String header = "Total money:";
     	Font font = this.getFontWhichFit(g, header, dest, 80);
     	g.setFont(font);
     	g.drawString(header, (int) (dest.x + (dest.width * 0.1)), clipBound.height / 25);  
@@ -190,7 +190,7 @@ public class BoardDisplay extends JPanel {
     private void paintArticleValues(Graphics g, Rectangle dest)
     {
     	g.setColor(Color.BLACK);
-    	String header = "Selling Value:";
+    	String header = "Selling value:";
     	Font font = this.getFontWhichFit(g, header, dest, 70);
     	g.setFont(font);
     	g.drawString(header, dest.x, clipBound.height / 2); 
