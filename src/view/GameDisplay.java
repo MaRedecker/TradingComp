@@ -53,6 +53,7 @@ public class GameDisplay implements Observer {
 		this.smallOptionsDisplay = new SmallOptionsDisplay(settings);
 		this.boardDisplay = new BoardDisplay(this.offers, this.companies);
 		this.pauseDisplay = new PauseDisplay(settings, competition);
+		this.settings.addObserver(pauseDisplay);
 		JPanel content = new JPanel();
 		content.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import model.Competition;
 import model.Settings;
 
-public class PauseDisplay extends JPanel {
+public class PauseDisplay extends JPanel implements Observer {
 	
 	private JButton button;
 	private Competition competition;
@@ -45,7 +45,8 @@ public class PauseDisplay extends JPanel {
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				PauseDisplay.this.settings.setPause(!settings.isPaused());
+				if (competition.isRunning())
+					PauseDisplay.this.settings.setPause(!settings.isPaused());
 				if (settings.isPaused())
 					button.setText("Unpause");
 				else
@@ -59,6 +60,14 @@ public class PauseDisplay extends JPanel {
     public Dimension getPreferredSize() {
         return new Dimension(100, 50);
     }
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (settings.isPaused())
+			button.setText("Unpause");
+		else
+			button.setText("Pause");	
+	}
 	
 	
 	
