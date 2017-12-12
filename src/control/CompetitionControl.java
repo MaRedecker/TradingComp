@@ -133,7 +133,6 @@ public class CompetitionControl implements Observer {
 			}
 			companyInv.resetBuying();
 		}
-		inventories.updateInventoryData();
 	}
 	
 	public TendingOffers getTendingOffers()

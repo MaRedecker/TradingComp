@@ -26,6 +26,12 @@ public class OptionsDisplay extends JFrame {
 	
 	private JSpinner offersPerPlayer;
 	
+	private JSpinner ticksUntilMaxPrice;
+	
+	private JSpinner maxPriceIncrease;
+	
+	private JSpinner ticksUntilOfferDecrease;
+	
 	private JLabel content;
 	
 	private JButton okButton;
@@ -56,32 +62,48 @@ public class OptionsDisplay extends JFrame {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0.25;
-		content.add(new JLabel("Duration in Ticks : "),c);
+		content.add(new JLabel("Duration in ticks : "),c);
 		c.gridy = 0;
 		c.gridx = 1;
 		content.add(gameDuration, c);
 		c.gridx = 0;
 		c.gridy = 1;
-		content.add(new JLabel("Ticks until next Offer: "), c);
+		content.add(new JLabel("Ticks until next offer: "), c);
 		c.gridx = 1;
 		content.add(ticksUntilNextOffer, c);
 		this.add(content);
 		c.gridx = 0;
 		c.gridy = 2;
 		//c.anchor = GridBagConstraints.NORTHEAST;
-		content.add(new JLabel("Ticks until an Offer vanishes: "), c);
+		content.add(new JLabel("Ticks until an offer vanishes: "), c);
 		c.gridx = 1;
 		//c.anchor = GridBagConstraints.NORTHWEST;
 		content.add(this.ticksUntilDeleteOffer, c);
 		c.gridx = 0;
 		c.gridy = 3;
 		//c.anchor = GridBagConstraints.NORTHEAST;
-		content.add(new JLabel("Offers generated per Player: "), c);
+		content.add(new JLabel("Offers generated per player: "), c);
 		c.gridx = 1;
 		//c.anchor = GridBagConstraints.NORTHWEST;
 		content.add(this.offersPerPlayer, c);
 		c.gridx = 0;
 		c.gridy = 4;
+		content.add(new JLabel("Ticks until max price: "), c);
+		c.gridx = 1;
+		content.add(this.ticksUntilMaxPrice, c);
+		c.gridx = 0;
+		c.gridy = 5;
+		content.add(new JLabel("Max price multiplier: "), c);
+		c.gridx = 1;
+		//c.weightx = 0.5;
+		content.add(this.maxPriceIncrease, c);
+		c.gridx = 0;
+		c.gridy = 6;
+		content.add(new JLabel("Turns until offer prices decrease: "), c);
+		c.gridx = 1;
+		content.add(this.ticksUntilOfferDecrease, c);
+		c.gridx = 0;
+		c.gridy = 7;
 		content.add(this.okButton, c);
 		c.gridx = 1;
 		content.add(this.cancelButton, c);
@@ -102,7 +124,11 @@ public class OptionsDisplay extends JFrame {
 		gameDuration = new JSpinner(new SpinnerNumberModel(settings.getMaxTicks(), 10000, 100000, 100));
 		ticksUntilNextOffer = new JSpinner(new SpinnerNumberModel(settings.getTicksUntilNextOffer(), 100, 400, 1));
 		ticksUntilDeleteOffer = new JSpinner(new SpinnerNumberModel(settings.getTicksUntilDeleteOffer(), 200, 800, 1));
-		offersPerPlayer = new JSpinner(new SpinnerNumberModel(settings.getOffersGeneratedPerPlayer(), 1, 3, 1));
+		offersPerPlayer = new JSpinner(new SpinnerNumberModel(settings.getOffersGeneratedPerPlayer(), 0.5, 3, 0.5));
+		maxPriceIncrease = new JSpinner(new SpinnerNumberModel(settings.getMaxArticlePriceIncrease(), 1, 5, 0.1));
+		maxPriceIncrease.setPreferredSize(new Dimension(50,25));
+		ticksUntilMaxPrice = new JSpinner(new SpinnerNumberModel(settings.getTurnsUntilMaxPriceIncrease(), 100, 5000, 50));
+		ticksUntilOfferDecrease = new JSpinner(new SpinnerNumberModel(settings.getTicksUntilDecreasePrice(), 1, 300, 1));
 	}
 	
 	private void initOkButton()
@@ -136,7 +162,10 @@ public class OptionsDisplay extends JFrame {
 		settings.setMaxTicks((int) gameDuration.getValue());
 		settings.setTicksUntilNextOffer((int)ticksUntilNextOffer.getValue());
 		settings.setTicksUntilDeleteOffer((int) ticksUntilDeleteOffer.getValue());
-		settings.setOffersGeneratedPerPlayer((int) offersPerPlayer.getValue());
+		settings.setOffersGeneratedPerPlayer((double) offersPerPlayer.getValue());
+		settings.setMaxArticlePriceIncrease((double) maxPriceIncrease.getValue());
+		settings.setTurnsUntilMaxPriceIncrease((int) ticksUntilMaxPrice.getValue());
+		settings.setTicksUntilDecreasePrice((int) ticksUntilOfferDecrease.getValue());
 	}
 	
 	private void closeWindow()

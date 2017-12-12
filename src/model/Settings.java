@@ -23,7 +23,7 @@ public class Settings extends Observable {
 	
 	private int ticksUntilDeleteOffer;
 	
-	private int offersGeneratedPerPlayer;
+	private double offersGeneratedPerPlayer;
 	
 	private double maxArticlePriceIncreaseFactor;
 	
@@ -43,9 +43,9 @@ public class Settings extends Observable {
 		
 		setTicksUntilDeleteOffer(400);
 		
-		setTicksUntilDecreasePrice(10);
+		setTicksUntilDecreasePrice(50);
 		
-		offersGeneratedPerPlayer = 1;
+		offersGeneratedPerPlayer = 0.5;
 		
 		maxArticlePriceIncreaseFactor = 1.25;
 		
@@ -127,12 +127,12 @@ public class Settings extends Observable {
 		this.ticksUntilDecreasePrice = ticksUntilDecreasePrice;
 	}
 
-	public int getOffersGeneratedPerPlayer() {
+	public double getOffersGeneratedPerPlayer() {
 		return offersGeneratedPerPlayer;
 	}
 
-	public void setOffersGeneratedPerPlayer(int offersGeneratedPerPlayer) {
-		this.offersGeneratedPerPlayer = offersGeneratedPerPlayer;
+	public void setOffersGeneratedPerPlayer(double d) {
+		this.offersGeneratedPerPlayer = d;
 	}
 
 	public double getMaxArticlePriceIncrease() {

@@ -89,7 +89,7 @@ public class CompetitionControlTest {
 		assertEquals(competition.getCompanies().getCompaniesWhichBuy().size(), 
 							competition.getCompanies().getCompanies().size());	
 		competition.handleBuyingCompanies();
-		assertEquals(oldMoney - price, inv_cpy.getMoney(), 0.1);
+		assertEquals(oldMoney - price, inv.getMoney(), 0.1);
 		assertEquals(truck.getAmount(), offerAmount);	
 		assertEquals(truck.getLoadedArticle(), article);
 	}
