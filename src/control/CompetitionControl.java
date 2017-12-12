@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import control.Samples.BuyAndSellForProfit;
+import control.Samples.InvestInOneArticleCompany;
 import control.Samples.LowPriceBestPrice;
 import control.Samples.TestingCompany;
 import model.*;
@@ -66,6 +68,8 @@ public class CompetitionControl implements Observer {
 		articleControl.init();
 		InitInventories();
 		InitOffers();
+		inventories.updateInventoryData();
+		offers.updateOfferData();
 		start();
 		turnThread.start();
 	}
@@ -73,8 +77,9 @@ public class CompetitionControl implements Observer {
 	public void loadCompanies()
 	{
 		List<Company> companies = new ArrayList<Company>();
-		companies.add(new TestingCompany());
 		companies.add(new LowPriceBestPrice());
+		companies.add(new InvestInOneArticleCompany());
+		companies.add(new BuyAndSellForProfit());
 		participants.setCompanies(companies);
 	}
 	

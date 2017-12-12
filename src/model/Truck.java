@@ -93,6 +93,8 @@ public class Truck implements TruckInformation {
 		if (this.state != TruckState.IDLE && this.position == targetPosition)
 		{
 			reachedPosition = true;
+			if (this.isDriving())
+				this.setTruckState(TruckState.IDLE);
 		}
 	}
 	
