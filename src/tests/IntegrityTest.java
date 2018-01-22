@@ -4,14 +4,14 @@ import static org.junit.Assert.*;
 import model.Offer;
 import model.Settings;
 import model.StoredArticle;
-import model.TendingOffers;
+import model.PendingOffers;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import control.ArticleControl;
 import control.InventoryControl;
-import control.TendingOffersControl;
+import control.PendingOffersControl;
 import control.Samples.TestingCompany;
 
 public class IntegrityTest {
@@ -19,7 +19,7 @@ public class IntegrityTest {
 	private TestingCompany company;
 	private ArticleControl articleControl;
 	private InventoryControl invControl;
-	private TendingOffersControl tendingOffersControl;
+	private PendingOffersControl tendingOffersControl;
 	private Settings settings;
 
 	@Before
@@ -29,13 +29,13 @@ public class IntegrityTest {
 		articleControl = new ArticleControl(settings);
 		articleControl.init();
 		invControl = new InventoryControl(articleControl);
-		tendingOffersControl = new TendingOffersControl(articleControl.getAllArticles());
+		tendingOffersControl = new PendingOffersControl(articleControl.getAllArticles());
 		tendingOffersControl.generateNewOffer(0);
 		tendingOffersControl.generateNewOffer(0);
 		invControl.initInventories(1);
 		tendingOffersControl.updateOfferData();
 		invControl.updateInventoryData();
-		company._setData(invControl.getInventoryCopy(0), tendingOffersControl.getTendingOffersCpy());
+		company._setData(invControl.getInventoryCopy(0), tendingOffersControl.getPendingOffersCpy());
 		
 	}
 

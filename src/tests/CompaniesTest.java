@@ -8,7 +8,7 @@ import java.util.List;
 import model.Companies;
 import model.Company;
 import model.Inventory;
-import model.TendingOffers;
+import model.PendingOffers;
 import model.Truck;
 
 import org.junit.Before;
@@ -23,13 +23,13 @@ public class CompaniesTest {
 	List<Company> participants;
 	Inventory inv1;
 	Inventory inv2;
-	TendingOffers offers;
+	PendingOffers offers;
 	@Before
 	public void init()
 	{
 		inv1 = new Inventory(ArticleGenerator.getTestArticles());
 		inv2 = new Inventory(ArticleGenerator.getTestArticles());
-		offers = new TendingOffers();
+		offers = new PendingOffers();
 		participants = new ArrayList<Company>();
 		participants.add(new TestingCompany());
 		participants.get(0)._setData(inv1, offers);

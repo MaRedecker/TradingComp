@@ -39,7 +39,7 @@ public class CompetitionControlTest {
 		this.init();
 		assertFalse(competition.getCompanies().getCompanies().isEmpty());
 		assertNotNull(competition.getCompetition());
-		assertNotNull(competition.getTendingOffers());
+		assertNotNull(competition.getPendingOffers());
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class CompetitionControlTest {
 	{
 		this.init();
 		assertTrue(competition.getCompanies().getCompaniesWhichBuy().isEmpty());
-		Offer offer = competition.getTendingOffers().getAllOffers().get(0);
+		Offer offer = competition.getPendingOffers().getAllOffers().get(0);
 		if (offer.getFullPrice() > 1000)
 			offer.setPrice(0.001);
 		int offerAmount = offer.getAmount();

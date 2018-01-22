@@ -7,43 +7,43 @@ import Generators.OfferGenerator;
 import model.Article;
 import model.Offer;
 import model.Settings;
-import model.TendingOffers;
+import model.PendingOffers;
 
 /**
  * Takes care of all offers which are available to the companies.
  * @author Max
  *
  */
-public class TendingOffersControl {
+public class PendingOffersControl {
 	
-	private TendingOffers tendingOffers;
-	private TendingOffers tendingOffers_cpy;
+	private PendingOffers pendingOffers;
+	private PendingOffers pendingOffers_cpy;
 	
 	List<Article> allArticles;
 	
 	OfferGenerator offerGenerator;
 	
 	
-	public TendingOffersControl(List<Article> articles)
+	public PendingOffersControl(List<Article> articles)
 	{
-		tendingOffers = new TendingOffers();
-		tendingOffers_cpy = new TendingOffers();
+		pendingOffers = new PendingOffers();
+		pendingOffers_cpy = new PendingOffers();
 		allArticles = articles;
 		offerGenerator = new OfferGenerator(articles);
 	}
 	
 	public void addOffer(Offer newOffer)
 	{
-		tendingOffers.addOffer(newOffer);
+		pendingOffers.addOffer(newOffer);
 	}
 	
 	public void deleteOffer(int ID)
 	{
-		for (Offer offer : tendingOffers.getAllOffers())
+		for (Offer offer : pendingOffers.getAllOffers())
 		{
 			if (offer.getOfferID() == ID)
 			{
-				tendingOffers.getAllOffers().remove(offer);
+				pendingOffers.getAllOffers().remove(offer);
 				return;
 			}
 		}
@@ -51,22 +51,22 @@ public class TendingOffersControl {
 	
 	public void setOffers(List<Offer>offers)
 	{
-		tendingOffers.setOffers(offers);
+		pendingOffers.setOffers(offers);
 	}
 	
-	public TendingOffers getTendingOffersCpy()
+	public PendingOffers getPendingOffersCpy()
 	{
-		return tendingOffers_cpy;
+		return pendingOffers_cpy;
 	}
 	
 	public void generateNewOffer(int tick)
 	{
-		tendingOffers.addOffer(offerGenerator.generateNewOffer(tick));
+		pendingOffers.addOffer(offerGenerator.generateNewOffer(tick));
 	}
 	
 	public void updateAll(int tick, Settings settings, int numberOfParticipants)
 	{
-		for (Iterator<Offer> offerIterator = tendingOffers.getAllOffers().iterator(); offerIterator.hasNext();)
+		for (Iterator<Offer> offerIterator = pendingOffers.getAllOffers().iterator(); offerIterator.hasNext();)
 		{
 			Offer offer = offerIterator.next();
 			if (tick - offer.getStartTime() > settings.getTicksUntilDeleteOffer())
@@ -79,13 +79,13 @@ public class TendingOffersControl {
 			for (int i = 0; i < settings.getOffersGeneratedPerPlayer() * numberOfParticipants; i++)
 				this.generateNewOffer(tick);
 		}
-		tendingOffers.updateOffers(tick, settings.getLowestPriceFactor() * numberOfParticipants,
+		pendingOffers.updateOffers(tick, settings.getLowestPriceFactor() * numberOfParticipants,
 									 settings.getTicksUntilDecreasePrice());
 	}
 	
 	public Offer getOffer(int id)
 	{
-		for (Offer offer : tendingOffers.getAllOffers())
+		for (Offer offer : pendingOffers.getAllOffers())
 		{
 			if (offer.getOfferID() == id)
 			{
@@ -97,16 +97,16 @@ public class TendingOffersControl {
 	
 	public void updateOfferData()
 	{
-		tendingOffers_cpy.updateData(tendingOffers);
+		pendingOffers_cpy.updateData(pendingOffers);
 	}
 
-	public TendingOffers getTendingOffers() 
+	public PendingOffers getPendingOffers() 
 	{
-		return tendingOffers;
+		return pendingOffers;
 	}
 
 	public void reset() {
-		this.tendingOffers.getAllOffers().clear();
-		this.tendingOffers_cpy.getAllOffers().clear();
+		this.pendingOffers.getAllOffers().clear();
+		this.pendingOffers_cpy.getAllOffers().clear();
 	}
 }

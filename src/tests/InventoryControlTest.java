@@ -9,7 +9,7 @@ import model.Buildings;
 import model.Inventory;
 import model.Settings;
 import model.StoredArticle;
-import model.TendingOffers;
+import model.PendingOffers;
 import model.Truck;
 import model.TruckState;
 
@@ -29,12 +29,12 @@ public class InventoryControlTest {
 	ArticleControl articleControl;
 	Inventory inv1;
 	Inventory inv2;
-	TendingOffers offers;
+	PendingOffers offers;
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		offers = new TendingOffers();
+		offers = new PendingOffers();
 	}
 
 	@Test

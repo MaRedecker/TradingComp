@@ -12,7 +12,7 @@ import java.awt.Color;
 public abstract class Company {
 	
 	private InventoryInformation inventory;
-	private TendingOffersInformation offers;
+	private PendingOffersInformation offers;
 	
 	/**
 	 * Will be called each tick.
@@ -68,7 +68,7 @@ public abstract class Company {
 	 * @return a TendingOffersInformation object, which holds all information
 	 * about currently tending offers which are available.
 	 */
-	public TendingOffersInformation getOfferInformation() {
+	public PendingOffersInformation getOfferInformation() {
 		return offers;
 	}
 
@@ -77,7 +77,7 @@ public abstract class Company {
 	 * @param freshInventory
 	 * @param freshOffers
 	 */
-	public void _setData(InventoryInformation freshInventory, TendingOffersInformation freshOffers)
+	public void _setData(InventoryInformation freshInventory, PendingOffersInformation freshOffers)
 	{
 		inventory = freshInventory;
 		offers = freshOffers;

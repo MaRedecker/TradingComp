@@ -16,13 +16,13 @@ import model.Company;
 import model.InventoryInformation;
 import model.OfferInformation;
 import model.StoredArticleInformation;
-import model.TendingOffers;
+import model.PendingOffers;
 import model.TruckInformation;
 
 public class BoardDisplay extends JPanel {
 
 	public static final Color BACKGROUND = Color.BLACK;
-	private TendingOffers tendingOffers;
+	private PendingOffers tendingOffers;
 	private Companies companies;
 	private Rectangle clipBound;
 	private Rectangle warehouse;
@@ -31,7 +31,7 @@ public class BoardDisplay extends JPanel {
 	private Rectangle storeFront;
 	Rectangle warehouseFront;
 	
-	public BoardDisplay(TendingOffers tendOffers, Companies companies)
+	public BoardDisplay(PendingOffers tendOffers, Companies companies)
 	{   	
 		tendingOffers = tendOffers;
 		this.companies = companies;

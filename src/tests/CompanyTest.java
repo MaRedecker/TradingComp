@@ -8,7 +8,7 @@ import java.util.List;
 import model.Article;
 import model.Company;
 import model.Inventory;
-import model.TendingOffers;
+import model.PendingOffers;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class CompanyTest {
 	private List<Article> articles;
 	private Company company = new TestingCompany();
 	private Inventory inv; 
-	private TendingOffers offers;
+	private PendingOffers offers;
 	
 	@Before
 	public void init()
@@ -29,7 +29,7 @@ public class CompanyTest {
 		articles = new ArrayList<Article>();
 		articles.add(new Article("TestArticle", 0, 0));
 		inv = new Inventory(articles);
-		offers = new TendingOffers();
+		offers = new PendingOffers();
 	}
 	@Test
 	public void testCompany() {

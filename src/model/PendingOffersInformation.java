@@ -7,7 +7,7 @@ import java.util.List;
  * @author Max
  *
  */
-public interface TendingOffersInformation {
+public interface PendingOffersInformation {
 	
 	/**
 	 * 

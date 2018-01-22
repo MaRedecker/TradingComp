@@ -20,12 +20,12 @@ import model.Companies;
 import model.Company;
 import model.Competition;
 import model.Settings;
-import model.TendingOffers;
+import model.PendingOffers;
 
 public class GameDisplay implements Observer {
 	
 	private JFrame mainWindow;
-	private TendingOffers offers;
+	private PendingOffers offers;
 	private Companies companies;
 	private SpeedDisplay speedDisplay;
 	private SmallOptionsDisplay smallOptionsDisplay;
@@ -53,7 +53,7 @@ public class GameDisplay implements Observer {
 	public void init()
 	{
 		this.mainWindow.getContentPane().removeAll();
-		this.offers = competitionControl.getTendingOffers();
+		this.offers = competitionControl.getPendingOffers();
 		this.companies = competitionControl.getCompanies();
 		this.speedDisplay = new SpeedDisplay(settings);
 		this.smallOptionsDisplay = new SmallOptionsDisplay(settings);

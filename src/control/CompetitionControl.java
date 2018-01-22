@@ -20,7 +20,7 @@ public class CompetitionControl implements Observer {
 	
 	private Competition competition;
 	private Companies participants;
-	private TendingOffersControl offers;
+	private PendingOffersControl offers;
 	private InventoryControl inventories;
 	private TurnControl turnControl;
 	private ArticleControl articleControl;
@@ -32,7 +32,7 @@ public class CompetitionControl implements Observer {
 		participants = new Companies();
 		articleControl = new ArticleControl(settings);
 		articleControl.init();
-		offers = new TendingOffersControl(articleControl.getAllArticles());
+		offers = new PendingOffersControl(articleControl.getAllArticles());
 		inventories = new InventoryControl(articleControl);
 		turnControl = new TurnControl(competition, this, settings);
 		competition.addObserver(this);
@@ -113,7 +113,7 @@ public class CompetitionControl implements Observer {
 		for (Company company : participants.getCompanies())
 		{
 			company._setData(inventories.getInventoryCopy(CompanyIndex), 
-					this.offers.getTendingOffersCpy());
+					this.offers.getPendingOffersCpy());
 			CompanyIndex++;
 		}
 	}
@@ -141,9 +141,9 @@ public class CompetitionControl implements Observer {
 		}
 	}
 	
-	public TendingOffers getTendingOffers()
+	public PendingOffers getPendingOffers()
 	{
-		return offers.getTendingOffers();
+		return offers.getPendingOffers();
 	}
 	
 	public Companies getCompanies()

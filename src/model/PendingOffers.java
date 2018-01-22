@@ -8,11 +8,11 @@ import java.util.List;
  * @author Max
  *
  */
-public class TendingOffers implements TendingOffersInformation {
+public class PendingOffers implements PendingOffersInformation {
 	
 	private List<Offer> allOffers;
 	
-	public TendingOffers()
+	public PendingOffers()
 	{
 		allOffers = new ArrayList<Offer>();
 	}
@@ -42,7 +42,7 @@ public class TendingOffers implements TendingOffersInformation {
 		allOffers = offers;
 	}
 	
-	public void updateData(TendingOffers offers)
+	public void updateData(PendingOffers offers)
 	{
 		if (offers.getOffers().size() == allOffers.size())
 		{
