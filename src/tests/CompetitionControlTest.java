@@ -92,6 +92,7 @@ public class CompetitionControlTest {
 		assertEquals(oldMoney - price, inv.getMoney(), 0.1);
 		assertEquals(truck.getAmount(), offerAmount);	
 		assertEquals(truck.getLoadedArticle(), article);
+		competition.turn();
 	}
 	
 	private void init()

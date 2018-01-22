@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,6 @@ public class PauseDisplay extends JPanel implements Observer {
 	
 	private JButton button;
 	private Competition competition;
-	private boolean isPaused;
 	private Settings settings;
 	
 	public PauseDisplay(Settings settings, Competition competition)
@@ -31,7 +29,6 @@ public class PauseDisplay extends JPanel implements Observer {
 		this.button = new JButton(buttonText);
 		this.competition = competition;
 		this.setButton();
-		isPaused = true;
 	}
 	
 	public void setRunning(boolean isRunning)
@@ -57,12 +54,14 @@ public class PauseDisplay extends JPanel implements Observer {
 	}
 	
     @Override
-    public Dimension getPreferredSize() {
+    public Dimension getPreferredSize() 
+    {
         return new Dimension(100, 50);
     }
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable arg0, Object arg1) 
+	{
 		if (settings.isPaused())
 			button.setText("Unpause");
 		else
