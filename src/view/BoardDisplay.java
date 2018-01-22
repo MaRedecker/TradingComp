@@ -28,6 +28,8 @@ public class BoardDisplay extends JPanel {
 	private Rectangle warehouse;
 	private Rectangle sales;
 	private Rectangle store;
+	private Rectangle storeFront;
+	Rectangle warehouseFront;
 	
 	public BoardDisplay(TendingOffers tendOffers, Companies companies)
 	{   	
@@ -48,8 +50,11 @@ public class BoardDisplay extends JPanel {
     	g.setColor(Color.GREEN);
     	g.fillRect(0,0, clipBound.width, clipBound.height);
     	g.setColor(Color.BLACK);
+    	this.paintWarehouseFront(g);
+    	this.paintStoreFront(g);
     	this.paintStreets(g);
     	this.paintTrucks(g);
+    	this.paintEntryDec(g);
     	this.paintStore(g);
     	this.paintWarehouse(g);
     	this.paintSales(g);
@@ -74,12 +79,48 @@ public class BoardDisplay extends JPanel {
     {
     	g.setColor(Color.GRAY);
     	fillRect(g, warehouse);
+    	g.setColor(Color.BLACK);
+    	drawRect(g, warehouse);
+    }
+    
+    private void paintWarehouseFront(Graphics g)
+    {
+    	g.setColor(Color.GRAY);
+    	warehouseFront = new Rectangle((int) ((int) warehouse.getX() + warehouse.getWidth()),0,clipBound.width / 16,clipBound.height);
+    	fillRect(g, warehouseFront); 
+    	g.setColor(Color.BLACK);
+    	drawRect(g, warehouseFront);
+    }
+    
+    private void paintStoreFront(Graphics g)
+    {
+    	g.setColor(Color.GRAY);
+    	storeFront = new Rectangle((int) ((int) store.getX() + store.getWidth()),0,clipBound.width / 16,clipBound.height);
+    	fillRect(g, storeFront); 
+    	g.setColor(Color.BLACK);
+    	drawRect(g, storeFront);   	
     }
     
     private void paintSales(Graphics g)
     {
     	g.setColor(Color.GRAY);
     	fillRect(g, sales);
+    	g.setColor(Color.BLACK);
+    	drawRect(g, sales);
+    }
+    
+    private void paintEntryDec(Graphics g)
+    {
+    	List<Company> allComps = companies.getCompanies();
+    	for (int i = 0; i < allComps.size(); i++)
+    	{
+    		g.setColor(Color.GRAY);
+    		g.fillRect((int) this.warehouseFront.getX()+1, this.getHeightofPlayer(i) - 5, this.warehouseFront.width /2, clipBound.height / 20 + 10);
+    		g.fillRect((int) this.storeFront.getX()+1, this.getHeightofPlayer(i) - 5, this.storeFront.width /2, clipBound.height / 20 + 10);
+    		g.setColor(Color.DARK_GRAY);
+    		g.fillRect((int) this.warehouseFront.getX()+1+this.warehouseFront.width /2, this.getHeightofPlayer(i) - 10, this.warehouseFront.width /2, 5);
+    		g.fillRect((int) this.storeFront.getX()+1+this.storeFront.width /2, this.getHeightofPlayer(i) - 10, this.warehouseFront.width /2, 5);
+    	}       	
     }
     
     private void paintOffers(Graphics g)
@@ -134,6 +175,11 @@ public class BoardDisplay extends JPanel {
     private void fillRect(Graphics g, Rectangle2D rect)
     {
     	g.fillRect((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight());
+    }
+    
+    private void drawRect(Graphics g, Rectangle2D rect)
+    {
+    	g.drawRect((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight());
     }
     
     private void paintPlayerInfos(Graphics g, Rectangle dest)
