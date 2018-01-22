@@ -28,7 +28,7 @@ public class CompetitionControl implements Observer {
 	
 	public CompetitionControl(Settings settings)
 	{
-		competition = new Competition();
+		competition = new Competition(settings.getMaxTicks());
 		participants = new Companies();
 		articleControl = new ArticleControl(settings);
 		articleControl.init();
@@ -63,6 +63,7 @@ public class CompetitionControl implements Observer {
 	
 	public void run()
 	{
+		competition.setMaxTurns(settings.getMaxTicks());
 		Thread turnThread = new Thread(turnControl);
 		loadCompanies();
 		articleControl.init();

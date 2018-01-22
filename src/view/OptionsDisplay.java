@@ -113,7 +113,7 @@ public class OptionsDisplay extends JFrame {
 	private void initSpinners()
 	{
 		gameDuration = new JSpinner(new SpinnerNumberModel(
-									settings.getMaxTicks(), 10000, 100000, 100));
+									settings.getMaxTicks(), 1000, 100000, 100));
 		
 		ticksUntilNextOffer = new JSpinner(new SpinnerNumberModel(
 									settings.getTicksUntilNextOffer(), 100, 400, 1));
@@ -170,7 +170,7 @@ public class OptionsDisplay extends JFrame {
 		settings.setTicksUntilDecreasePrice((int) ticksUntilOfferDecrease.getValue());
 	}
 	
-	private void closeWindow()
+	private void closeWindow() 
 	{
 		this.dispose();
 	}

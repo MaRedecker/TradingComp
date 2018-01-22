@@ -1,16 +1,23 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import control.CompetitionControl;
 import model.Companies;
+import model.Company;
 import model.Competition;
 import model.Settings;
 import model.TendingOffers;
@@ -108,7 +115,30 @@ public class GameDisplay implements Observer {
 		}
 		else
 		{
+			if (competition.outOfTime() && this.isRunning == true)
+			{
+				this.createScoreboard();
+				this.startAndStopButton.reset();
+			}
 			this.isRunning = false;
 		}
+	}
+	
+	private void createScoreboard()
+	{
+	    JFrame frame = new JFrame();
+	    frame.setTitle("Scores");
+	    String col[] = {"Company ","Money"};
+	    DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+	    JTable table = new JTable(tableModel);
+	    for (Company company : competitionControl.getCompanies().getCompanies())
+	    {
+	    	Object[] objs = {company.getName(), company.getInventory().getMoney()}; 	
+	    	tableModel.addRow(objs);
+	    }    
+	    JScrollPane scrollPane = new JScrollPane(table);
+	    frame.add(scrollPane, BorderLayout.CENTER);
+	    frame.setSize(300, 150);
+	    frame.setVisible(true);	
 	}
 }
