@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import model.Companies;
 import model.Settings;
 
 public class OptionsDisplay extends JFrame {
@@ -38,9 +39,12 @@ public class OptionsDisplay extends JFrame {
 	
 	private JButton cancelButton;
 	
-	public OptionsDisplay(Settings settings)
+	private Companies companies;
+	
+	public OptionsDisplay(Settings settings, Companies comps)
 	{
 		this.settings = settings;
+		this.companies = comps;
 	}
 	
 	public void init()
@@ -55,6 +59,7 @@ public class OptionsDisplay extends JFrame {
 		this.initSpinners();
 		this.initOkButton();
 		this.initCancelButton();
+		this.initCompaniesButton();
 		c.weightx = 0.1;
 		c.weighty = 1;
 		c.gridx = 0;
@@ -157,6 +162,20 @@ public class OptionsDisplay extends JFrame {
 				closeWindow();	
 			}		
 		});
+	}
+	
+	private void initCompaniesButton()
+	{
+		cancelButton = new JButton("Companies");
+		cancelButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SelectCompaniesDisplay selectCompanies = new SelectCompaniesDisplay(companies);
+				selectCompanies.init();
+				selectCompanies.start();
+			}		
+		});		
 	}
 
 	private void applySettings()

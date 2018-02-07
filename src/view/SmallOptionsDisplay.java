@@ -8,18 +8,20 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
+import model.Companies;
 import model.Settings;
 
 public class SmallOptionsDisplay extends JPanel {
 	
 	private OptionsDisplay optionsMenu;
 	private Settings settings;
+	private Companies companies;
 	
-	public SmallOptionsDisplay(Settings settings)
+	public SmallOptionsDisplay(Settings settings, Companies comps)
 	{   	
 		addOptionsButton();
 		this.settings = settings;
-		
+		companies = comps;
 	}
 	
 	private void addOptionsButton()
@@ -44,7 +46,7 @@ public class SmallOptionsDisplay extends JPanel {
     
     private void showOptions()
     {
-    	optionsMenu = new OptionsDisplay(settings);
+		optionsMenu = new OptionsDisplay(settings, companies);
     	optionsMenu.init();
     	optionsMenu.start();
     }

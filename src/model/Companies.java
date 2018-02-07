@@ -1,8 +1,12 @@
 package model;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import util.DynamicCompiler;
 
 /*
  * 
@@ -10,6 +14,7 @@ import java.util.stream.Collectors;
 public class Companies {
 	
 	private List<Company> companies;
+	private List<String> companies_src;
 	
 	public Companies()
 	{
@@ -18,6 +23,15 @@ public class Companies {
 
 	public List<Company> getCompanies() {
 		return companies;
+	}
+	
+	public boolean hasUserChoice()
+	{
+		if (companies_src == null || companies_src.isEmpty())
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	public Company getCompany(int index)
@@ -47,10 +61,27 @@ public class Companies {
 			company.update();
 		}
 	}
+	
+	public void setSource(List<String> src)
+	{
+		this.companies_src = src;
+	}
 
 	public int getNumberOfParticipants() {
 		
 		return this.companies.size();
+	}
+
+	public void compile() {
+		this.companies = new ArrayList<Company>();
+		for (int i = 0; i < this.companies_src.size(); i++)
+		{
+			File dic = new File(companies_src.get(i));
+			String name = dic.getName();
+			dic = new File(dic.getParent() + "\\");
+			this.companies.add(DynamicCompiler.compileAndLoad(dic, name).get(0));
+		}
+		
 	}
 
 }

@@ -56,7 +56,7 @@ public class GameDisplay implements Observer {
 		this.offers = competitionControl.getPendingOffers();
 		this.companies = competitionControl.getCompanies();
 		this.speedDisplay = new SpeedDisplay(settings);
-		this.smallOptionsDisplay = new SmallOptionsDisplay(settings);
+		this.smallOptionsDisplay = new SmallOptionsDisplay(settings, competitionControl.getCompanies());
 		this.boardDisplay = new BoardDisplay(this.offers, this.companies);
 		this.pauseDisplay = new PauseDisplay(settings, competition);
 		this.speedDisplay = new SpeedDisplay(settings);

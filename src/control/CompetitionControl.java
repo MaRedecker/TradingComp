@@ -77,11 +77,18 @@ public class CompetitionControl implements Observer {
 	
 	public void loadCompanies()
 	{
-		List<Company> companies = new ArrayList<Company>();
-		companies.add(new LowPriceBestPrice());
-		companies.add(new InvestInOneArticleCompany());
-		companies.add(new BuyAndSellForProfit());
-		participants.setCompanies(companies);
+		if (participants.hasUserChoice())
+		{
+			participants.compile();
+		}
+		else
+		{
+			List<Company> companies = new ArrayList<Company>();
+			companies.add(new LowPriceBestPrice());
+			companies.add(new InvestInOneArticleCompany());
+			companies.add(new BuyAndSellForProfit());
+			participants.setCompanies(companies);
+		}
 	}
 	
 	public void loadTestCompanies()
